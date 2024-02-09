@@ -24,7 +24,9 @@
       "esri/widgets/Legend"
     ], function(esriConfig, WebMap, MapView, ScaleBar, Legend) {
 
-      const webmap = new WebMap({
+       esriConfig.apiKey = "AAPK4bf8cf6dfa904b4c9f5ec0be715bb27agkWTGXWq94NxhDqbXSn56vSSSHjyZaRbn-cqqZ0KXXRibMGG_jTe7m9xvn-u1mLu";
+
+       const webmap = new WebMap({
         portalItem: {
           id: "2d442ceee9514ee38ce36fd5e1a5ccbf"
         }

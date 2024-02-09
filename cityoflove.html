@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>ArcGIS Maps - Paris, the City of Love</title>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.28/"></script>
+    <script>
+     require(["esri/config", "esri/Map", "esri/views/MapView", "esri/Graphic", "esri/layers/GraphicsLayer"], function(esriConfig, Map, MapView, Graphic, GraphicsLayer) {
+
+       esriConfig.apiKey = "AAPK4bf8cf6dfa904b4c9f5ec0be715bb27agkWTGXWq94NxhDqbXSn56vSSSHjyZaRbn-cqqZ0KXXRibMGG_jTe7m9xvn-u1mLu";
+
+       const map = new Map({
+           basemap: "arcgis/human-geography-dark" // basemap styles service
+        });
+       const view = new MapView({
+          map: map,
+          center: [2.345204551279295, 48.850493663107784], // Longitude, latitude
+          zoom: 12, // Zoom level
+          container: "viewDiv" // Div element
+        });
+        const graphicsLayer = new GraphicsLayer();
+        map.add(graphicsLayer);
+
+       // Create a polygon geometry
+       const polygon = {
+          type: "polygon",
+          rings: [
+              [2.3505025914533064, 48.72151005820518], //Longitude, latitude
+              [2.5436076828301566, 48.86615407743653], //Longitude, latitude
+              [2.5436417715405355, 48.93051071287084], //Longitude, latitude
+              [2.4457287259744476, 48.96004598276929],   //Longitude, latitude
+              [2.3769438074911307, 48.951359977021525],  //Longitude, latitude
+              [2.3425181190997932, 48.900946813120754], //Longitude, latitude
+              [2.3081328537779484, 48.95657144239533], //Longitude, latitude
+              [2.218301544148062, 48.96525644616497], //Longitude, latitude
+              [2.149361929016038, 48.937456817535065],   //Longitude, latitude
+              [2.1284040179184274, 48.873137251391825],  //Longitude, latitude
+              [2.3505025914533064, 48.72151005820518],  //Longitude, latitude
+          ]
+        };
+       const simpleFillSymbol = {
+          type: "simple-fill",
+          color: [233, 70, 161, 0.8],  // Pink, opacity 80%
+          outline: {
+            color: [164, 22, 101],
+            width: 1
+         }
+       };
+
+       const popupTemplate = {
+          title: "{Name}",
+          content: "{Description}"
+       }
+       const attributes = {
+          Name: "Graphic",
+          Description: "Je t'aime, Paris! La ville de l'amour."
+       }
+
+       const polygonGraphic = new Graphic({
+          geometry: polygon,
+          symbol: simpleFillSymbol,
+
+          attributes: attributes,
+          popupTemplate: popupTemplate
+
+       });
+       graphicsLayer.add(polygonGraphic);
+     });
+    </script>
+   </head>
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>
